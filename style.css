@@ -803,6 +803,7 @@ textarea:disabled {
 
   /* 印刷しない要素。上のリセットより必ず後に置く。 */
   .no-print,
+  .feedback-fab,
   .site-header,
   .form-pane,
   .seo,
