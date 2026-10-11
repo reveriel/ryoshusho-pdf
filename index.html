@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>領収書 PDF 生成ツール｜無料・登録不要でそのまま印刷できる</title>
+<meta name="description" content="宛名・但書・金額（大字対応）・発行元を入力するだけで、日本式の領収書を無料で作成し PDF 保存・印刷できるツールです。収入印紙が必要な金額の自動チェック、軽減税率（8%）区分、登録番号にも対応。登録不要、すべてブラウザ内で完結します。">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.reveriel.com/ryoshusho-pdf/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="領収書 PDF 生成ツール｜無料・登録不要">
+<meta property="og:description" content="宛名・但書・金額（大字対応）・発行元を入力して、日本式の領収書を無料で PDF 保存・印刷できます。">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:url" content="https://www.reveriel.com/ryoshusho-pdf/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230d6e63'/%3E%3Cpath d='M9 4h14v24l-2.4-1.6L18.2 28l-2.2-1.6L13.8 28l-2.4-1.6L9 28V4z' fill='%23ffffff'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-family='sans-serif' font-size='11' font-weight='700' fill='%230d6e63'%3E%E9%A0%98%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "6fc01bf3ac5e457ba1bd16b91e5b653e"}'></script><!-- End Cloudflare Web Analytics -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "領収書 PDF 生成ツール",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "url": "https://www.reveriel.com/ryoshusho-pdf/",
+  "description": "宛名・但書・金額（大字対応）・発行元を入力して、日本式の領収書を無料で作成し PDF 保存・印刷できるブラウザ完結型ツール。",
+  "inLanguage": "ja",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "JPY"
+  },
+  "featureList": [
+    "領収書の A4 PDF 出力・印刷",
+    "金額の大字（漢数字）表示",
+    "収入印紙が必要な金額の自動チェック",
+    "軽減税率 8%・標準税率 10% の区分表示",
+    "登録番号（T＋13桁）の入力と検証",
+    "入力内容はブラウザ内のみで処理"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "収入印紙はどんなときに必要ですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "紙の領収書を受け取った側が保管する場合、記載金額が5万円以上のものは印紙税の課税文書（第17号文書）にあたり、発行者が収入印紙を貼って割印する必要があります。5万円未満は非課税です。本ツールは金額が5万円以上になると画面上でお知らせしますが、印紙の画像を自動で貼り付けることはしません。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "PDF で渡す場合も収入印紙は必要ですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "PDF ファイルとして電子的に交付するだけであれば、紙の文書ではないため印紙税はかかりません。ただし、受け取った側が印刷して紙で保管する運用にする場合は、課税文書として扱われることがあります。詳しくは税理士などの専門家にご確認ください。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "宛名が分からないときは「上様」でよいですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "相手先の名称が分からない場合や、不特定の人が受け取る場面では、宛名を「上様」とすることが慣例的に行われています。ただし、取引先へ発行する領収書では、後日の照合のために宛名を具体的に記載するのが一般的です。本ツールは敬称で「上様」を選ぶと、宛名欄を空にしたまま上様として出力します。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "軽減税率（8%）の区分はどこで使いますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "書籍や食品など軽減税率の対象となる取引が含まれるとき、また、適格簡易請求書として税率ごとの合計額を示すときに使います。金額の入力を「税率区分で入力」に切り替えると、10%対象と8%対象を分けて入力でき、税込の合計額と内消費税額を自動計算します。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "入力した内容はサーバーに送信されますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "いいえ。入力内容はサーバーへ送信されず、お使いの端末のブラウザ内だけで処理されます。ページを閉じると内容は破棄されます。"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="site-header no-print">
+  <div class="wrap header-inner">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <rect width="32" height="32" rx="7" fill="currentColor"/>
+        <path d="M9 4h14v24l-2.4-1.6L18.2 28l-2.2-1.6L13.8 28l-2.4-1.6L9 28V4z" fill="#fff"/>
+        <text x="16" y="21" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="700" fill="currentColor">領</text>
+      </svg>
+      <div class="brand-text">
+        <strong>領収書 作成ツール</strong>
+        <span>無料・登録不要・ブラウザだけで完結</span>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <button type="button" class="btn btn-primary" id="printBtn">
+        <svg viewBox="0 0 20 20" aria-hidden="true" class="ic">
+          <path d="M6 7V3h8v4M6 15H4.5A1.5 1.5 0 0 1 3 13.5v-4A1.5 1.5 0 0 1 4.5 8h11A1.5 1.5 0 0 1 17 9.5v4a1.5 1.5 0 0 1-1.5 1.5H14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <rect x="6" y="12" width="8" height="6" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+        印刷 / PDF保存
+      </button>
+      <button type="button" class="btn btn-ghost" id="resetBtn">リセット</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap layout">
+
+  <!-- ============ 入力フォーム ============ -->
+  <section class="pane form-pane no-print" aria-label="入力フォーム">
+    <div class="pane-head">
+      <h2>領収書の内容を入力</h2>
+      <p class="hint">入力すると右のプレビューにすぐ反映されます。金額以外はあとから変えられます。</p>
+    </div>
+
+    <form id="receiptForm" autocomplete="off" novalidate>
+
+      <!-- 収入印紙の注意喚起（画面のみ） -->
+      <div class="stamp-alert" id="stampAlert" role="status" hidden>
+        <svg viewBox="0 0 20 20" aria-hidden="true" class="ic">
+          <path d="M10 2.5 1.5 17h17L10 2.5z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M10 8v4.2M10 14.6v.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <strong>5万円以上の領収書には収入印紙が必要です</strong>
+          <p>記載金額が <span id="stampAmount">¥50,000</span> です。紙で交付する場合は、収入印紙（印紙税）を貼付し、割印してください。PDF のまま電子的に交付するだけであれば印紙税はかかりません。</p>
+        </div>
+      </div>
+
+      <fieldset class="card">
+        <legend>宛名と日付<span class="req-badge">領収書の基本</span></legend>
+
+        <div class="field">
+          <label for="clientName">宛名（領収書を受け取る人の名前・会社名）</label>
+          <input type="text" id="clientName" name="clientName" placeholder="例：株式会社サンプル" aria-describedby="clientNameHelp">
+          <p class="help" id="clientNameHelp">敬称で「上様」を選ぶと、宛名は「上様」だけが出力されます。</p>
+        </div>
+
+        <div class="field">
+          <label for="clientHonorific">敬称</label>
+          <select id="clientHonorific" name="clientHonorific">
+            <option value="様" selected>様</option>
+            <option value="御中">御中</option>
+            <option value="上様">上様（宛名が分からないとき）</option>
+            <option value="">（付けない）</option>
+          </select>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="issueDate">発行日</label>
+            <input type="date" id="issueDate" name="issueDate">
+          </div>
+          <div class="field">
+            <label for="receiptNo">領収書番号（任意）</label>
+            <input type="text" id="receiptNo" name="receiptNo" placeholder="例：R-2026-001">
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="card">
+        <legend>金額と但書<span class="req-badge">金額は税込で入力</span></legend>
+
+        <div class="field">
+          <label for="proviso">但書（品名・摘要）</label>
+          <input type="text" id="proviso" name="proviso" placeholder="例：WEBサイト制作費として / お品代として" aria-describedby="provisoHelp">
+          <p class="help" id="provisoHelp">「◯◯として」の形にすると、プレビューでは「但し、◯◯として」と表示されます。</p>
+        </div>
+
+        <div class="field">
+          <label for="amountMode">金額の入力方法</label>
+          <select id="amountMode" name="amountMode">
+            <option value="single" selected>一括で入力（税込の合計金額）</option>
+            <option value="split">税率区分で入力（10% と 8% に分ける）</option>
+          </select>
+        </div>
+
+        <div id="singleAmountBlock">
+          <div class="field">
+            <label for="amountTotal">金額（税込）</label>
+            <input type="text" id="amountTotal" name="amountTotal" class="num" inputmode="numeric" placeholder="330000" aria-describedby="amountTotalHelp">
+            <p class="help" id="amountTotalHelp">カンマや「¥」を付けても構いません。税込の金額を入力してください。</p>
+          </div>
+        </div>
+
+        <div id="splitAmountBlock" hidden>
+          <div class="field-row">
+            <div class="field">
+              <label for="amount10">10% 対象額（税込）</label>
+              <input type="text" id="amount10" name="amount10" class="num" inputmode="numeric" placeholder="300000">
+            </div>
+            <div class="field">
+              <label for="amount8">8% 対象額（税込・軽減税率）</label>
+              <input type="text" id="amount8" name="amount8" class="num" inputmode="numeric" placeholder="30000">
+            </div>
+          </div>
+          <p class="hint">軽減税率の対象は、書籍・新聞・食品など限られた品目です。合計額は自動計算され、プレビューに税率ごとの内訳が表示されます。</p>
+        </div>
+
+        <div class="field">
+          <label class="check-line" for="showTax">
+            <input type="checkbox" id="showTax" name="showTax" checked>
+            <span>内消費税額を表示する（内税）</span>
+          </label>
+        </div>
+
+        <div class="field" id="taxRateBlock">
+          <label for="taxRateIncluded">内消費税額の税率</label>
+          <select id="taxRateIncluded" name="taxRateIncluded">
+            <option value="10" selected>10%（標準税率）</option>
+            <option value="8">8%（軽減税率）</option>
+          </select>
+          <p class="help">税込金額から逆算し、1円未満は切り捨てて表示します。</p>
+        </div>
+
+        <div class="field">
+          <label class="check-line" for="useDaiji">
+            <input type="checkbox" id="useDaiji" name="useDaiji" checked>
+            <span>金額を大字（漢数字）で表示する</span>
+          </label>
+          <p class="help">「金 参拾参萬円 也」のように表記します。チェックを外すと「¥330,000-」と表示します。</p>
+        </div>
+      </fieldset>
+
+      <fieldset class="card">
+        <legend>発行元（受け取った人が確認できる情報）</legend>
+
+        <div class="field">
+          <label for="issuerName">屋号・氏名<span class="req">必須</span></label>
+          <input type="text" id="issuerName" name="issuerName" placeholder="例：山田 太郎 / デザインスタジオ山田">
+        </div>
+
+        <div class="field">
+          <label for="issuerAddress">住所</label>
+          <textarea id="issuerAddress" name="issuerAddress" rows="2" placeholder="例：〒150-0001 東京都渋谷区神宮前1-2-3 サンプルビル5F"></textarea>
+        </div>
+
+        <div class="field">
+          <label for="issuerTel">電話番号（任意）</label>
+          <input type="text" id="issuerTel" name="issuerTel" inputmode="tel" placeholder="例：03-1234-5678">
+        </div>
+
+        <div class="field">
+          <label for="regNumber">登録番号（任意）</label>
+          <input type="text" id="regNumber" name="regNumber" placeholder="T1234567890123"
+                 inputmode="text" spellcheck="false" aria-describedby="regNumberHelp regNumberError">
+          <p class="help" id="regNumberHelp">インボイス制度の登録番号です。「T」＋13桁の半角数字（全角で入力しても自動変換されます）。未入力でも領収書は作成できます。</p>
+          <p class="error" id="regNumberError" role="alert" hidden>登録番号の形式が正しくありません。「T」の後に13桁の数字を入力してください。</p>
+        </div>
+      </fieldset>
+
+      <fieldset class="card">
+        <legend>備考</legend>
+        <div class="field">
+          <label for="notes">備考欄に表示する文言</label>
+          <textarea id="notes" name="notes" rows="3" placeholder="例：再発行はいたしかねます。"></textarea>
+        </div>
+      </fieldset>
+
+      <p class="privacy-note">
+        <svg viewBox="0 0 16 16" aria-hidden="true" class="ic"><path d="M8 1.5 3 3.5v4c0 3 2.1 5.6 5 6.5 2.9-.9 5-3.5 5-6.5v-4L8 1.5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+        入力した内容はサーバーに送信されません。すべてお使いのブラウザ内だけで処理されます。
+      </p>
+    </form>
+  </section>
+
+  <!-- ============ プレビュー / 印刷対象 ============ -->
+  <section class="pane preview-pane" aria-label="プレビュー">
+    <div class="preview-bar no-print">
+      <span class="dot"></span> プレビュー（A4）
+      <span class="stamp-badge" id="stampBadge" hidden>収入印紙が必要な金額です</span>
+    </div>
+
+    <div class="paper-wrap">
+      <article class="paper" id="paper">
+        <h1 class="doc-title">領 収 書</h1>
+
+        <header class="doc-head">
+          <div class="doc-head-left">
+            <p class="doc-to">
+              <span class="client-name" id="pvClientName">株式会社サンプル</span><span class="honorific" id="pvHonorific">様</span>
+            </p>
+          </div>
+
+          <div class="doc-head-right">
+            <p class="doc-meta-line">
+              <span class="meta-label">発行日</span>
+              <span id="pvDate">2026年10月11日</span>
+            </p>
+            <p class="doc-meta-line" id="pvNoLine" hidden>
+              <span class="meta-label">No.</span>
+              <span id="pvNo"></span>
+            </p>
+          </div>
+        </header>
+
+        <div class="amount-band">
+          <span class="amount-label">領収金額</span>
+          <span class="amount-value num" id="pvAmount">¥0-</span>
+          <span class="amount-note" id="pvAmountNote">（税込）</span>
+        </div>
+
+        <p class="proviso">
+          但し、<span id="pvProviso">お品代として</span>
+        </p>
+        <p class="receipt-line">上記正に領収いたしました。</p>
+
+        <div class="tax-breakdown" id="pvTaxBlock" hidden>
+          <table class="breakdown-table">
+            <tbody id="pvTaxRows"></tbody>
+          </table>
+        </div>
+
+        <div class="doc-body">
+          <div class="body-left">
+            <div class="foot-block" id="pvNotesBlock" hidden>
+              <h2 class="foot-title">備考</h2>
+              <p class="foot-body" id="pvNotes"></p>
+            </div>
+          </div>
+
+          <div class="issuer-block">
+            <p class="issuer-name" id="pvIssuerName">山田 太郎</p>
+            <p class="issuer-line" id="pvIssuerAddressLine" hidden><span id="pvIssuerAddress"></span></p>
+            <p class="issuer-line" id="pvIssuerTelLine" hidden>TEL：<span id="pvIssuerTel"></span></p>
+            <p class="issuer-reg" id="pvRegLine" hidden>登録番号：<span id="pvRegNumber"></span></p>
+          </div>
+        </div>
+
+        <p class="paper-footnote" id="pvPaperNote" hidden></p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ SEO 説明文 ============ -->
+  <section class="seo no-print" aria-label="ツールについて">
+    <h2>領収書 PDF 生成ツールとは</h2>
+    <p>
+      お金を受け取ったときに発行する<strong>領収書</strong>は、金銭の受領を証明するための書類です。フリーランス・個人事業主・小規模なお店では、
+      会計ソフトや専用の帳票ツールを用意するほどではないけれど、取引先やお客様から求められてその場で発行したい、という場面がよくあります。
+      このツールは、そうした場面で<strong>日本式の領収書</strong>をブラウザ上でかんたんに作成し、A4 の PDF として保存・印刷できるようにするものです。
+    </p>
+    <p>
+      宛名（「上様」への切り替えも可能）・但書・金額・発行元を入力するだけで、レイアウトされた領収書がプレビューに表示されます。
+      金額は<strong>大字（だいじ）</strong>の漢数字表記と算用数字を切り替えられ、内消費税額の自動計算、軽減税率 8% と標準税率 10% の区分表示にも対応しています。
+      入力内容はサーバーへ送信されず、すべてお使いのブラウザの中だけで処理されます。
+    </p>
+
+    <h3>使い方（3ステップ）</h3>
+    <ol class="seo-list">
+      <li><strong>宛名と日付を入力する</strong> — 相手先の名称と発行日を入れます。相手が特定できない場合は敬称で「上様」を選ぶと、宛名を空欄のまま発行できます。</li>
+      <li><strong>金額と但書を入力する</strong> — 税込の金額を入力し、但書には「WEBサイト制作費として」のように受領の内容を書きます。軽減税率の対象が含まれる場合は「税率区分で入力」に切り替えてください。</li>
+      <li><strong>印刷 / PDF保存を押す</strong> — プレビューを確認してボタンを押すと、印刷ダイアログが開きます。送信先を「PDF に保存」にすれば PDF ファイルとして保存できます。</li>
+    </ol>
+
+    <h3>なぜ領収書が必要なのか</h3>
+    <p>
+      領収書は、受け取った側にとっては<strong>支払いの証拠</strong>であり、経費として計上するための重要な書類になります。経費を証明できないと、確定申告でその支出を認めてもらえません。
+      とくに事業者間の取引では、領収書や請求書の控えを保存しておくことが求められます。
+    </p>
+    <p>
+      発行する側にとっても、領収書は「いつ・誰から・いくら受け取り・何の対価として受け取ったか」を記録する役割を持ちます。あとから入金の消し込みや売上の確認をするとき、
+      但書や発行日が手がかりになります。だからこそ、金額と但書は具体的に、発行元の情報は連絡が取れる形で記載しておくのが安全です。
+    </p>
+    <p>
+      また、印紙税の面では、紙で交付する領収書のうち<strong>記載金額が5万円以上のもの</strong>は課税文書（第17号文書）にあたり、発行者が収入印紙を貼って割印する必要があります。
+      本ツールは金額が5万円以上になると画面上でお知らせしますが、印紙の画像を自動で貼り付けることはしません。実際の運用に合わせてご判断ください。
+    </p>
+
+    <h3>よくある質問</h3>
+    <dl class="faq">
+      <dt>収入印紙はどんなときに必要ですか？</dt>
+      <dd>紙の領収書を発行する場合、記載金額が5万円以上のものは印紙税の課税文書にあたり、収入印紙を貼って割印する必要があります。5万円未満は非課税です。本ツールは金額が5万円以上になると画面上でお知らせします。</dd>
+
+      <dt>PDF で渡す場合も収入印紙は必要ですか？</dt>
+      <dd>PDF ファイルとして電子的に交付するだけであれば、紙の文書ではないため印紙税はかかりません。ただし、受け取った側が印刷して紙で保管する運用にしている場合は課税文書として扱われることがあります。判断に迷う場合は税理士などの専門家にご確認ください。</dd>
+
+      <dt>宛名が分からないときは「上様」でよいですか？</dt>
+      <dd>相手先の名称が分からない場合や、不特定の人が受け取る場面では、宛名を「上様」とすることが慣例的に行われています。ただし、継続的に取引する相手への領収書では、後日の照合のために宛名を具体的に記載するのが一般的です。</dd>
+
+      <dt>金額をそのまま入力するのと、税率区分で入力するのはどう違いますか？</dt>
+      <dd>「一括で入力」は税込の合計金額をそのまま記載する、もっとも一般的な領収書です。「税率区分で入力」は、軽減税率の対象品目が含まれる場合や、適格簡易請求書として税率ごとの合計額を示したい場合に使います。どちらの場合も内消費税額を表示できます。</dd>
+
+      <dt>金額の端数はどうなりますか？</dt>
+      <dd>内消費税額は税込金額から逆算して計算し、1円未満を切り捨てています。税率区分で入力した場合は、区分ごとに消費税額を計算して合算します。これは一般的な処理方法のひとつです。</dd>
+
+      <dt>入力したデータはどこかに保存されますか？</dt>
+      <dd>いいえ。入力内容はサーバーへ送信されず、お使いの端末のブラウザ内だけで処理されます。ページを閉じると内容は破棄されます。</dd>
+    </dl>
+
+    <p class="disclaimer">
+      ※ 本ツールは領収書作成の補助を目的としたものであり、法令への適合や税務上の取り扱いを保証するものではありません。記載内容の最終確認はご自身で、または税理士などの専門家にご相談ください。
+    </p>
+  </section>
+</main>
+
+<footer class="site-footer no-print">
+  <div class="wrap">
+    <p>領収書 作成ツール — ブラウザだけで動く無料の領収書 PDF ジェネレーター</p>
+    <p><a href="https://docs.google.com/forms/d/e/1FAIpQLSfHGUfgAlViT3TFiVtJi_EpJ4ioUpd9oGyaJ7rehEV-gBH_PA/viewform?usp=pp_url&amp;entry.1745177199=領収書" target="_blank" rel="noopener">ご意見・フィードバック</a></p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
