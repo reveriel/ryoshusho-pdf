@@ -1,0 +1,106 @@
+/* =========================================================
+   法務ページ（プライバシーポリシー / 運営者情報）
+   style.css の CSS 変数を継承し、ツール本体とトーンを揃える。
+   ========================================================= */
+
+.legal-page {
+  padding-block: 28px 60px;
+}
+
+.legal-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 22px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--c-text-muted);
+  text-decoration: none;
+}
+.legal-back:hover { color: var(--c-accent); text-decoration: underline; }
+
+.legal {
+  max-width: 820px;
+  margin-inline: auto;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 34px 38px 40px;
+}
+@media (max-width: 640px) { .legal { padding: 22px 18px 26px; } }
+
+.legal h1 {
+  margin: 0 0 8px;
+  font-size: 24px;
+  line-height: 1.5;
+  color: var(--c-text);
+}
+.legal .legal-meta {
+  margin: 0 0 28px;
+  font-size: 12px;
+  color: var(--c-text-faint);
+}
+.legal h2 {
+  margin: 34px 0 10px;
+  padding: 0 0 8px;
+  font-size: 17px;
+  line-height: 1.5;
+  border-bottom: 1px solid var(--c-border);
+  color: var(--c-text);
+}
+.legal h3 { margin: 22px 0 6px; font-size: 15px; color: var(--c-text); }
+.legal p { margin: 0 0 12px; color: var(--c-text-muted); }
+.legal ol,
+.legal ul { margin: 0 0 14px; padding-left: 1.4em; color: var(--c-text-muted); }
+.legal ol { list-style: decimal; }
+.legal ul { list-style: disc; }
+.legal li { margin-bottom: 6px; }
+.legal strong { color: var(--c-text); font-weight: 700; }
+.legal a:not(.btn) { color: var(--c-accent); }
+
+/* 法務ページ内のボタンはリンク色より優先する。
+   `.legal a`（詳細度 0,1,1）が `.btn-primary`（0,1,0）に勝つため上書きする。 */
+.legal .btn-primary { color: #fff; }
+@media (prefers-color-scheme: dark) { .legal .btn-primary { color: #08130f; } }
+
+/* 運営者情報などの項目テーブル */
+.legal-table {
+  width: 100%;
+  margin: 8px 0 18px;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+.legal-table th,
+.legal-table td {
+  padding: 13px 16px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--c-border);
+  color: var(--c-text-muted);
+}
+.legal-table th {
+  width: 32%;
+  min-width: 140px;
+  font-weight: 700;
+  color: var(--c-text);
+  background: var(--c-surface-2);
+}
+.legal-table tr:last-child th,
+.legal-table tr:last-child td { border-bottom: 0; }
+
+.legal-contact {
+  margin-top: 32px;
+  padding: 18px 20px;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  background: var(--c-surface-2);
+  font-size: 13px;
+  color: var(--c-text-muted);
+}
+.legal-contact p { margin: 0; }
+
+@media print {
+  .legal-back, .site-header, .site-footer, .feedback-fab { display: none !important; }
+  .legal { border: 0; box-shadow: none; padding: 0; max-width: none; }
+}
