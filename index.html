@@ -272,6 +272,35 @@
       </fieldset>
 
       <fieldset class="card">
+        <legend>書式<span class="req-badge">見た目の調整</span></legend>
+
+        <div class="field">
+          <span class="field-label" id="docFontLabel">フォント</span>
+          <div class="radio-row" role="radiogroup" aria-labelledby="docFontLabel">
+            <label class="radio-line"><input type="radio" name="docFont" value="gothic" checked><span>ゴシック体</span></label>
+            <label class="radio-line"><input type="radio" name="docFont" value="mincho"><span>明朝体</span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <span class="field-label" id="docWeightLabel">文字の太さ</span>
+          <div class="radio-row" role="radiogroup" aria-labelledby="docWeightLabel">
+            <label class="radio-line"><input type="radio" name="docWeight" value="normal" checked><span>通常</span></label>
+            <label class="radio-line"><input type="radio" name="docWeight" value="bold"><span>太字</span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <span class="field-label" id="dateEraLabel">日付の表記</span>
+          <div class="radio-row" role="radiogroup" aria-labelledby="dateEraLabel">
+            <label class="radio-line"><input type="radio" name="dateEra" value="seireki" checked><span>西暦</span></label>
+            <label class="radio-line"><input type="radio" name="dateEra" value="wareki"><span>和暦</span></label>
+          </div>
+          <p class="help">和暦にすると、プレビューの発行日を「令和8年10月21日」のように表示します。</p>
+        </div>
+      </fieldset>
+
+      <fieldset class="card">
         <legend>備考</legend>
         <div class="field">
           <label for="notes">備考欄に表示する文言</label>

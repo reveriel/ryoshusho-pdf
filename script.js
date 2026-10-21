@@ -47,11 +47,41 @@
     return '¥' + comma(n);
   }
 
-  // "2026-10-11" → "2026年10月11日"
-  function formatDate(iso) {
+  // 元号と改元日（YYYY-MM-DD）。新しい元号から順に判定する。
+  var ERA_LIST = [
+    { name: '令和', start: '2019-05-01', year: 2019 },
+    { name: '平成', start: '1989-01-08', year: 1989 },
+    { name: '昭和', start: '1926-12-25', year: 1926 },
+    { name: '大正', start: '1912-07-30', year: 1912 },
+    { name: '明治', start: '1868-01-01', year: 1868 }
+  ];
+
+  // "2026-10-11" → "令和8年10月11日"（明治より前は null）
+  function toWareki(iso) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
+    if (!m) return null;
+
+    for (var i = 0; i < ERA_LIST.length; i++) {
+      var era = ERA_LIST[i];
+      // ゼロ埋めされた ISO 文字列は辞書順比較で日付比較になる
+      if (iso < era.start) continue;
+      var n = Number(m[1]) - era.year + 1;
+      var eraYear = n === 1 ? '元' : String(n);
+      return era.name + eraYear + '年' + Number(m[2]) + '月' + Number(m[3]) + '日';
+    }
+    return null;
+  }
+
+  // "2026-10-11" → "2026年10月11日" / era が 'wareki' なら和暦
+  function formatDate(iso, era) {
     if (!iso) return '';
     var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
     if (!m) return iso;
+
+    if (era === 'wareki') {
+      var wareki = toWareki(iso);
+      if (wareki) return wareki;
+    }
     return Number(m[1]) + '年' + Number(m[2]) + '月' + Number(m[3]) + '日';
   }
 
@@ -95,6 +125,19 @@
 
   function $(id) { return document.getElementById(id); }
 
+  // 名前付きラジオの選択値（未選択なら空文字）
+  function checkedValue(name) {
+    var el = document.querySelector('input[name="' + name + '"]:checked');
+    return el ? el.value : '';
+  }
+
+  function setRadio(name, value) {
+    var nodes = document.querySelectorAll('input[name="' + name + '"]');
+    for (var i = 0; i < nodes.length; i++) {
+      nodes[i].checked = nodes[i].value === value;
+    }
+  }
+
   function todayISO() {
     var d = new Date();
     var mm = String(d.getMonth() + 1).padStart(2, '0');
@@ -136,8 +179,15 @@
     issuerAddress: '〒150-0001 東京都渋谷区神宮前1-2-3 サンプルビル5F',
     issuerTel: '03-1234-5678',
     regNumber: 'T1234567890123',
-    notes: '本書は領収書として発行するものです。\n再発行はいたしかねますので、大切に保管してください。'
+    notes: '本書は領収書として発行するものです。\n再発行はいたしかねますので、大切に保管してください。',
+    docFont: 'gothic',
+    docWeight: 'normal',
+    dateEra: 'seireki'
   };
+
+  // 既定のゴシックは紙面が元から使っている書体（--font）のままにするため、
+  // ユーザーがフォントを切り替えるまでは class を付けない。
+  var docFontTouched = false;
 
   /* ---------------------------------------------------------
      登録番号の検証
@@ -186,6 +236,20 @@
   }
 
   /* ---------------------------------------------------------
+     書式（フォント・太字）の適用
+     紙面の class を切り替えるだけで、印刷時の CSS にもそのまま乗る
+     --------------------------------------------------------- */
+
+  function applyDocStyle() {
+    var paper = $('paper');
+    var font = checkedValue('docFont');
+
+    paper.classList.toggle('font-mincho', font === 'mincho');
+    paper.classList.toggle('font-gothic', font === 'gothic' && docFontTouched);
+    paper.classList.toggle('is-bold', checkedValue('docWeight') === 'bold');
+  }
+
+  /* ---------------------------------------------------------
      プレビューの描画
      --------------------------------------------------------- */
 
@@ -224,7 +288,9 @@
 
     /* --- 発行日・番号 --- */
     var dateISO = $('issueDate').value;
-    $('pvDate').innerHTML = dateISO ? escapeHtml(formatDate(dateISO)) : placeholder('未入力');
+    $('pvDate').innerHTML = dateISO
+      ? escapeHtml(formatDate(dateISO, checkedValue('dateEra')))
+      : placeholder('未入力');
 
     var receiptNo = $('receiptNo').value.trim();
     $('pvNoLine').hidden = !receiptNo;
@@ -385,11 +451,16 @@
     $('regNumber').value = DEFAULTS.regNumber;
     $('notes').value = DEFAULTS.notes;
     $('issueDate').value = todayISO();
+    setRadio('docFont', DEFAULTS.docFont);
+    setRadio('docWeight', DEFAULTS.docWeight);
+    setRadio('dateEra', DEFAULTS.dateEra);
+    docFontTouched = false;
   }
 
   function refresh() {
     updateModeVisibility();
     updateRegNumberState();
+    applyDocStyle();
     renderPreview();
   }
 
@@ -423,6 +494,14 @@
         refresh();
       }
     });
+
+    // 既定のゴシックは既存の紙面書体のまま。切り替えたときだけ class を当てる。
+    var fontRadios = document.querySelectorAll('input[name="docFont"]');
+    for (var i = 0; i < fontRadios.length; i++) {
+      fontRadios[i].addEventListener('change', function () {
+        docFontTouched = true;
+      });
+    }
 
     $('receiptForm').addEventListener('input', refresh);
     $('receiptForm').addEventListener('change', refresh);
