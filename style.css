@@ -1050,3 +1050,28 @@ textarea:disabled {
   color: var(--c-text-faint); font-size: 11.5px; text-decoration: underline;
 }
 @media print { .profile-hint { display: none !important; } }
+
+/* ===== 解説セクション内の表（guide.css を読み込まないツールページ用） ===== */
+.seo .guide-table {
+  width: 100%;
+  margin: 0 0 16px;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+.seo .guide-table th,
+.seo .guide-table td {
+  border: 1px solid var(--c-border);
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.7;
+}
+.seo .guide-table th {
+  background: var(--c-surface-2);
+  color: var(--c-text);
+  font-weight: 700;
+  white-space: nowrap;
+}
+@media (max-width: 640px) {
+  .seo .guide-table th { white-space: normal; }
+}
