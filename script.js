@@ -473,8 +473,72 @@
      初期化
      --------------------------------------------------------- */
 
+
+  /* ---------------------------------------------------------
+     自社情報の保存（この端末内のみ / 外部送信なし）
+     毎回同じ発行元を入力し直さないための最小限の保存。
+     --------------------------------------------------------- */
+  var PROFILE_KEY = 'ryoshusho.profile.v1';
+  var profileStore = (function () {
+    try {
+      var k = '__rs_test__';
+      window.localStorage.setItem(k, '1');
+      window.localStorage.removeItem(k);
+      return window.localStorage;
+    } catch (e) { return null; }
+  })();
+  var profileTimer = null;
+  var PROFILE_FIELDS = ['issuerName', 'issuerAddress', 'issuerTel', 'regNumber', 'proviso'];
+
+  function queueSaveProfile() {
+    if (!profileStore) return;
+    if (profileTimer) clearTimeout(profileTimer);
+    profileTimer = setTimeout(function () {
+      var data = {};
+      PROFILE_FIELDS.forEach(function (id) { var el = $(id); if (el) data[id] = el.value; });
+      try { profileStore.setItem(PROFILE_KEY, JSON.stringify({ v: 1, savedAt: new Date().toISOString(), fields: data })); } catch (e) {}
+    }, 500);
+  }
+
+  function restoreProfile() {
+    if (!profileStore) return false;
+    var raw;
+    try { raw = profileStore.getItem(PROFILE_KEY); } catch (e) { return false; }
+    if (!raw) return false;
+    var parsed;
+    try { parsed = JSON.parse(raw); } catch (e) { return false; }
+    if (!parsed || parsed.v !== 1 || !parsed.fields) return false;
+    var restored = 0;
+    PROFILE_FIELDS.forEach(function (id) {
+      var el = $(id);
+      if (!el || !parsed.fields[id]) return;
+      // 初期値のままの項目だけ復元する（ユーザーが既に入力した値を上書きしない）
+      if (el.value === DEFAULTS[id]) { el.value = parsed.fields[id]; restored++; }
+    });
+    return restored > 0;
+  }
+
+  function showProfileHint() {
+    var form = $('receiptForm');
+    if (!form || !form.parentNode) return;
+    var bar = document.createElement('div');
+    bar.className = 'profile-hint no-print';
+    bar.innerHTML = '前回入力した発行元の情報を復元しました。' +
+      '<button type="button" class="profile-delete" id="profileDelete">保存データを削除</button>';
+    form.parentNode.insertBefore(bar, form);
+    $('profileDelete').addEventListener('click', function () {
+      try { profileStore.removeItem(PROFILE_KEY); } catch (e) {}
+      if (bar.parentNode) bar.parentNode.removeChild(bar);
+    });
+  }
+
   function init() {
     applyFieldDefaults();
+
+    if (restoreProfile()) {
+      refresh();
+      showProfileHint();
+    }
 
     // 登録番号は入力を半角に正規化しつつ検証
     var regInput = $('regNumber');
@@ -505,6 +569,8 @@
 
     $('receiptForm').addEventListener('input', refresh);
     $('receiptForm').addEventListener('change', refresh);
+    $('receiptForm').addEventListener('input', queueSaveProfile);
+    $('receiptForm').addEventListener('change', queueSaveProfile);
 
     // 金額欄はフォーカスが外れたときに整形する
     ['amountTotal', 'amount10', 'amount8'].forEach(function (id) {
@@ -514,6 +580,7 @@
     });
 
     $('printBtn').addEventListener('click', function () {
+      queueSaveProfile();
       window.print();
     });
 
