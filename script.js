@@ -276,6 +276,9 @@
     // 宛名が「上様」のときは宛名欄を使わない
     $('clientName').disabled = isAtesama;
 
+    var atesamaWarn = $('atesamaWarn');
+    if (atesamaWarn) atesamaWarn.hidden = !isAtesama;
+
     if (isAtesama) {
       $('pvClientName').textContent = '';
       $('pvHonorific').textContent = '上様';
